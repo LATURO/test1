@@ -39,6 +39,6 @@ Point fun(Point p){
 }
 int main() {
     Point p(5,5,10);
-    fun(p)
+    fun(p);
     Point t=p;
 }
