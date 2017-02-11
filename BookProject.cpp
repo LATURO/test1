@@ -11,7 +11,7 @@ private:
 	string genre;
 	string 	author;
 public:
-	void add();
+	void add(string/*title*/,int/*rate*/,int/*pages*/,int/*oldmin*/,string/*genre*/,string/*author*/);
 	void show();
 	void search();
 	void updaterate();
@@ -33,7 +33,6 @@ private:
 
 public:
     Date(arguments);
-    virtual ~Date();
 };
 
 class Autor{
@@ -44,8 +43,7 @@ private:
     Date birthday;
 public:
     Autor(arguments);
-    virtual ~Autor();
 };
 int main(){
-    cout<<"lol kek cheburek";
+    Book myNewBook;
 }
