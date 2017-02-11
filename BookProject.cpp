@@ -11,12 +11,12 @@ private:
 	string genre;
 	string 	author;
 public:
-	void add(string/*title*/,int/*rate*/,int/*pages*/,int/*oldmin*/,string/*genre*/,string/*author*/);
+	void add(string title ,int rate ,int pages ,int oldmin ,string genre,string author);
 	void show();
 	void search();
 	void updaterate();
 }
-void Book::add(){
+void Book::add(string title ,int rate ,int pages ,int oldmin ,string genre,string author){
 
 }
 void Book::show(){
