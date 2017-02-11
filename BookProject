@@ -1,1 +1,25 @@
-ы
+#include<iostream>
+
+using namespace std;
+
+class Date{
+private:
+
+public:
+    Date(arguments);
+    virtual ~Date();
+};
+
+class Autor{
+private:
+    string firstname;
+    string lastname;
+    string fathersname;
+    Date birthday;
+public:
+    Autor(arguments);
+    virtual ~Autor();
+};
+int main(){
+    cout<<"lol kek cheburek";
+}
