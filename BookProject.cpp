@@ -20,10 +20,10 @@ void Book::add(){
 	cin>>this->title;
 	cin>>this->author;
 	cin>>this->date;
+	cin>>this->pages;
 	cin>>this->oldmin;
 	cin>>this->genre;
 	cin>>this->rate;
-	cin>>this->pages;
 }
 void Book::show(){
 	cout<<"Название "<<this->title<<endl;
