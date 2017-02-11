@@ -11,13 +11,19 @@ private:
 	string genre;
 	string 	author;
 public:
-	void add(string title ,int rate ,int pages ,int oldmin ,string genre,string author);
+	void add();
 	void show();
 	void search();
 	void updaterate();
 }
-void Book::add(string title ,int rate ,int pages ,int oldmin ,string genre,string author){
-
+void Book::add(){
+	cin>>this->title;
+	cin>>this->author;
+	cin>>this->date;
+	cin>>this->oldmin;
+	cin>>this->genre;
+	cin>>this->rate;
+	cin>>this->pages;
 }
 void Book::show(){
 	cout<<"Название "<<this->title<<endl;
