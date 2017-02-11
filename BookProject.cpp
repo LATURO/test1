@@ -20,7 +20,13 @@ void Book::add(){
 
 }
 void Book::show(){
-
+	cout<<"Название "<<this->title<<endl;
+	cout<<"Автор "<<this->author<<endl;
+	cout<<"Год выпуска "<<this->date<<endl;
+	cout<<"Количество страниц "<<this->date<<endl;
+	cout<<"Возрастное ограничение "<<this->oldmin<<endl;
+	cout<<"Жанр "<<this->genre<<endl;
+	cout<<"Рейтинг "<<this->rate<<endl;
 }
 void Book::search(){
 
