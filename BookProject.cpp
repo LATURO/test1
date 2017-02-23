@@ -1,83 +1,8 @@
 #include<iostream>
-
+#include<vector>
 using namespace std;
-
-bool ifLeap(int year){
-	if(year%400==0)
-		return true;
-	else if(year%100==0)
-		return false;
-	else if(year%4==0)
-		return true;
-	else
-		return false;
-}
-void yearToUnixtime(int &year,int &ut){
-	if (year<1970)
-		ut+=0;//неважно
-	else
-		while (year>=1970) {
-        	if(ifLeap(year))
-            	ut+=366;
-        	else
-            	ut+=365;
-        	year-=1;
-    	}
-}
-void monthToUnixtime(int &month, int year, int &ut ) {
-	switch(month){
-		case 11:ut+=30;
-		case 10:ut+=31;
-		case 9:ut+=30;
-		case 8:ut+=31;
-		case 7:ut+=31;
-		case 6:ut+=30;
-		case 5:ut+=31;
-		case 4:ut+=30;
-		case 3:ut+=31;
-		case 2:ut+=(ifLeap(year)?29:28);
-		case 1:ut+=31;
-	}
-}
-
-class Date{
-private:
-	int year;
-	int month;
-	int day;
-    int unixtime;
-public:
-	Date();
-    Date(int);
-    Date(int,int,int);
-	void showYear();
-};
-void Date::showYear(){
-	cout<<this->year;
-}
-Date::Date(){
-	this->year=0;
-	this->month=0;
-	this->day=0;
-	this->unixtime = 0;
-}
-Date::Date(int year){
-	this->year=year;
-	this->month=0;
-	this->day=0;
-	this->unixtime=0;
-	cout<<"\n--"<<this->unixtime;
-	yearToUnixtime(this->year, this->unixtime);
-	cout<<"\n--"<<this->unixtime;
-}
-Date::Date(int year,int month,int day){
-	this->year=year;
-	this->month=month;
-	this->day=day;
-    this->unixtime = day;
-	yearToUnixtime(this->year, this->unixtime);
-	monthToUnixtime(this->month, this->year, this->unixtime);
-	this->unixtime+=day;
+void clearer() {
+    cout<< "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 }
 
 class Autor{
@@ -85,7 +10,7 @@ private:
     string firstname;
     string lastname;
     string fathersname;
-    Date birthday;
+    string birthday;
 public:
     Autor();
 };
@@ -94,9 +19,9 @@ class Book{
 private:
 	string title;
 	int rate;
-    Date date;
-	int pages;
-	int minage;
+	unsigned int pages;
+    unsigned short date;
+	unsigned short minage;
 	string genre;
 	string 	author;
 public:
@@ -106,13 +31,15 @@ public:
 	void search();
 	void updaterate();
 };
+
 Book::Book(){
 	this->title = "";
 	this->rate = 0;
-	Date date(0);
 	this->pages = 0;
+    this->date = 0;
 	this->minage = 0;
 	this->genre = "";
+
 	this->author = "";
 }
 void Book::add(){
@@ -121,10 +48,8 @@ void Book::add(){
 	cin>>this->title;
 	cout << "Author: ";
 	cin>>this->author;
-    int year;
 	cout<<"Year, when the book was written: ";
-	cin>>year;
-	Date date(year);
+//	cin>>this->date;
 	cout<<"Minimal old: ";
     cin>>this->minage;
 	cout<<"Genre?: ";
@@ -141,7 +66,7 @@ void Book::show(){
 	cout<<"\n*    Author: ";
 	cout<<this->author;
 	cout<<"\n*    Year, when the book was written: ";
-	this->date.showYear();
+	cout<<this->date;
 	cout<<"\n*    Minimal old: ";
     cout<<this->minage;
 	cout<<"\n*    Genre: ";
@@ -152,16 +77,46 @@ void Book::show(){
 	cout<<this->pages;
 	cout<<"\n*********************************************\n";
 }
-void Book::search(){
-
+bool search(string s){
+    return true;
 }
 void Book::updaterate(){
 
 }
 
 int main(){
-	Book newbook;
-	newbook.add();
-	newbook.show();
-
+    setlocale(0, "");
+    vector<Book> books;
+    int a = 1;
+    for(;a;){
+        cout<<"0 - Завершить программу."<<endl;
+        cout<<"1 - Просмотреть список книг."<<endl;
+        cout<<"2 - Добавить книгу."<<endl;
+        cout<<"3 - Изменить параметр книги."<<endl;
+        cout<<"4 - Найти книгу по названию."<<endl;
+        cout<<"5 - В разработке."<<endl;
+        cout<<"6 - В разработке."<<endl;
+        cout<<"7 - В разработке."<<endl;
+        cin>>a;
+        switch (a) {
+            case 0:{cout<<"Выход из цикла..\n";break;}
+            case 1:{cout<<"По дате\n";break;}
+            case 2:{cout<<"2wssssssss\n";break;}
+            case 3:{cout<<"4ssssssss\n";break;}
+            case 4:{
+                cout<<"Введите название: ";
+                string booksName;
+                getline(cin,booksName);
+                if(search(booksName))
+                    cout<<1;
+                else
+                cout<<1;
+                break;}
+            case 5:cout<<"В разработке..."<<endl;break;
+            case 6:cout<<"В разработке..."<<endl;break;
+            case 7:cout<<"В разработке..."<<endl;break;
+            default:cout<<"Введите,пожалуйста, другое число..";break;
+        }
+        cout<<"      Завершение программы..."<<endl;
+    }
 }
