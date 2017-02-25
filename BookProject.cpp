@@ -1,35 +1,38 @@
 #include<iostream>
 #include<vector>
+#include<set>
+#include<string>
 using namespace std;
 void clearer() {
     cout<< "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 }
 
-class Autor{
+class Author{
 private:
     string firstname;
     string lastname;
-    string fathersname;
     string birthday;
 public:
-    Autor();
+    Author():firstname(""),lastname(""),birthday("01.01.1970"){}
+    void setParams(string f,string l,string b){this->firstname=f;this->lastname=l;this->birthday=b;}
 };
 
 class Book{
 private:
 	string title;
+    Author author;
 	int rate;
 	unsigned int pages;
     unsigned short date;
-	unsigned short minage;
+	unsigned short minAge;
 	string genre;
-	string 	author;
 public:
 	Book();
 	void add();
 	void show();
 	void search();
 	void updaterate();
+    string bookTitle(){return this->title;}
 };
 
 Book::Book(){
@@ -37,26 +40,30 @@ Book::Book(){
 	this->rate = 0;
 	this->pages = 0;
     this->date = 0;
-	this->minage = 0;
+	this->minAge = 0;
 	this->genre = "";
-
-	this->author = "";
 }
 void Book::add(){
-	cout<<"Add a book, please\n";
-	cout<<"Title: ";
+	cout<<"- - - - - Добавление книги - - - -\n";
+	cout<<"Название: ";
 	cin>>this->title;
-	cout << "Author: ";
-	cin>>this->author;
-	cout<<"Year, when the book was written: ";
-//	cin>>this->date;
-	cout<<"Minimal old: ";
-    cin>>this->minage;
-	cout<<"Genre?: ";
+    string f,l,b;
+    cout << "Имя автора: ";
+    cin>>f;
+    cout << "Фамилия автора: ";
+    cin>>l;
+    cout << "День рождения автора: ";
+    cin>>b;
+    this->author.setParams(f,l,b);
+    cout<<"Год, в котором книга была написана: ";
+	cin>>this->date;
+	cout<<"Минимальный возраст: ";
+    cin>>this->minAge;
+	cout<<"Жанр: ";
 	cin>>this->genre;
-	cout<<"Rating: ";
+	cout<<"Рейтинг: ";
 	cin>>this->rate;
-	cout<<"Pages: ";
+	cout<<"Количество страниц: ";
 	cin>>this->pages;
 }
 void Book::show(){
@@ -64,11 +71,11 @@ void Book::show(){
 	cout<<"*Title: ";
 	cout<<this->title;
 	cout<<"\n*    Author: ";
-	cout<<this->author;
+//	cout<<this->author;
 	cout<<"\n*    Year, when the book was written: ";
 	cout<<this->date;
 	cout<<"\n*    Minimal old: ";
-    cout<<this->minage;
+    cout<<this->minAge;
 	cout<<"\n*    Genre: ";
 	cout<<this->genre;
 	cout<<"\n*    Rating: ";
@@ -79,6 +86,12 @@ void Book::show(){
 }
 bool search(string s){
     return true;
+}
+void showAllTheBooks(vector<Book> newbooks){    //!!!!!!!!!!!!!! Добавить "пока пусто"
+    cout<<"Все книги:\n";
+    for (size_t i = 0; i < newbooks.size(); i++) {
+        cout<<"######"<<i+1<<" - "<<newbooks[i].bookTitle()<<endl;
+    }
 }
 void Book::updaterate(){
 
@@ -93,16 +106,42 @@ int main(){
         cout<<"1 - Просмотреть список книг."<<endl;
         cout<<"2 - Добавить книгу."<<endl;
         cout<<"3 - Изменить параметр книги."<<endl;
-        cout<<"4 - Найти книгу по названию."<<endl;
+        cout<<"4 - Найти книгу по названию"<<endl;
+        cout<<"6 - Просмотреть список писателей."<<endl;
+        cout<<"7 - В разработке."<<endl;
         cout<<"5 - В разработке."<<endl;
         cout<<"6 - В разработке."<<endl;
         cout<<"7 - В разработке."<<endl;
         cin>>a;
         switch (a) {
-            case 0:{cout<<"Выход из цикла..\n";break;}
-            case 1:{cout<<"По дате\n";break;}
-            case 2:{cout<<"2wssssssss\n";break;}
-            case 3:{cout<<"4ssssssss\n";break;}
+            case 0:{
+                cout<<"Выход из цикла..\n";
+                break;
+            }
+            case 1:{
+                cout<<"1 - По дате.\n2 - В алфавитном порядке.\n";
+                int what;
+                cin>>what;
+                switch (what) {
+                    case 1:{
+                        showAllTheBooks(books);
+                        break;
+                    }
+                    case 2:{}
+                    default:break;
+                }
+                break;
+            }
+            case 2:{
+                Book newbook;
+                newbook.add();
+                books.push_back(newbook);
+                break;
+            }
+            case 3:{
+                cout<<"4ssssssss\n";
+                break;
+            }
             case 4:{
                 cout<<"Введите название: ";
                 string booksName;
@@ -117,6 +156,6 @@ int main(){
             case 7:cout<<"В разработке..."<<endl;break;
             default:cout<<"Введите,пожалуйста, другое число..";break;
         }
-        cout<<"      Завершение программы..."<<endl;
     }
+    cout<<"      Завершение программы..."<<endl;
 }
