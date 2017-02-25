@@ -1,7 +1,7 @@
-#include<iostream>
-#include<vector>
-#include<set>
-#include<string>
+#include <iostream>
+#include <vector>
+#include <set>
+#include <string>
 using namespace std;
 void clearer() {
     cout<< "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
@@ -110,7 +110,7 @@ void sortBooksByData(){
 
 int main(){
     setlocale(0, "");
-    vector<Book> books;
+    vector<Book> books(0);
     int a = 1;
     for(;a;){
         cout<<"0 - Завершить программу."<<endl;
@@ -144,10 +144,10 @@ int main(){
                 break;
             }
             case 2:{
-                Book newbook;
-                newbook.add();
-                books.push_back(newbook);
+               	books.resize(books.size()+1);
+               	books[books.size()-1].add();
                 break;
+
             }
             case 3:{
                 cout<<"4ssssssss\n";
