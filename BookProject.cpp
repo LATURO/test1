@@ -15,6 +15,7 @@ private:
 public:
     Author():firstname(""),lastname(""),birthday("01.01.1970"){}
     void setParams(string f,string l,string b){this->firstname=f;this->lastname=l;this->birthday=b;}
+    void show(){cout<<this->firstname<<" "<<this->lastname<<" "<<this->birthday<<endl;}
 };
 
 class Book{
@@ -65,35 +66,45 @@ void Book::add(){
 	cin>>this->rate;
 	cout<<"Количество страниц: ";
 	cin>>this->pages;
+    cout<<"Книга добавлена!\n";
 }
 void Book::show(){
 	cout<<"*********************************************\n";
-	cout<<"*Title: ";
+	cout<<"*Название: ";
 	cout<<this->title;
-	cout<<"\n*    Author: ";
-//	cout<<this->author;
-	cout<<"\n*    Year, when the book was written: ";
+	cout<<"\n*    Автор: ";
+    this->author.show();
+	cout<<"\n*    Год написания книги: ";
 	cout<<this->date;
-	cout<<"\n*    Minimal old: ";
+	cout<<"\n*    Минимальный возраст: ";
     cout<<this->minAge;
-	cout<<"\n*    Genre: ";
+	cout<<"\n*    Пол: ";
 	cout<<this->genre;
-	cout<<"\n*    Rating: ";
+	cout<<"\n*    Рейтинг: ";
 	cout<<this->rate;
-	cout<<"\n*    Pages: ";
+	cout<<"\n*    Количество страниц: ";
 	cout<<this->pages;
 	cout<<"\n*********************************************\n";
 }
-bool search(string s){
-    return true;
+bool search(string s,vector<Book> newbooks){
+    bool checker = false;
+    for (size_t i = 0; i < newbooks.size(); i++) {
+        if (s==newbooks[i].bookTitle()) {
+            checker = true;break;
+        }
+    }
+    return checker;
 }
 void showAllTheBooks(vector<Book> newbooks){    //!!!!!!!!!!!!!! Добавить "пока пусто"
+    if (newbooks.size()==0) {
+        cout<<"Книг пока нет!\n";
+    }else{
     cout<<"Все книги:\n";
     for (size_t i = 0; i < newbooks.size(); i++) {
         cout<<"######"<<i+1<<" - "<<newbooks[i].bookTitle()<<endl;
-    }
+    }}
 }
-void Book::updaterate(){
+void sortBooksByData(){
 
 }
 
@@ -145,11 +156,13 @@ int main(){
             case 4:{
                 cout<<"Введите название: ";
                 string booksName;
-                getline(cin,booksName);
-                if(search(booksName))
-                    cout<<1;
+                cin>>booksName;
+                if(search(booksName,books)){
+                    cout<<"Ваша книга:";
+                    
+                }
                 else
-                cout<<1;
+                    cout<<"Нет такой книги!\n";
                 break;}
             case 5:cout<<"В разработке..."<<endl;break;
             case 6:cout<<"В разработке..."<<endl;break;
