@@ -109,13 +109,21 @@ void Book::show(){
 	cout<<"\n*********************************************\n";
 }
 int search(string s,vector<Book> newbooks){
-    for (size_t i = 0; i < newbooks.size(); i++) {
+	int i = 0;
+	bool ch=true;
+    for (; i < newbooks.size(); i++) {
         if (s==newbooks[i].bookTitle()) {
-            return i;
+            ch=false;
             break;
         }
     }
-    return 0;
+    if(ch){
+    	return -1;
+    }
+    else
+    {
+    return i;
+}
 }
 void showAllTheBooks(vector<Book> newbooks){    //!!!!!!!!!!!!!! Добавить "пока пусто"
     if (newbooks.size()==0) {
@@ -177,12 +185,12 @@ int main(){
                 cout<<"Введите название: ";
                 string booksName;
                 cin>>booksName;
-                if(search(booksName,books)!=0){
-                    cout<<"Ваша книга: "<<search(booksName,books)+1;
+                if(search(booksName,books)>-1){
+                    cout<<"Ваша книга: "<<search(booksName,books)+1<<endl;
                     
                 }
                 else
-                    cout<<"Нет такой книги!\n";
+                    cout<<"Нет такой книги!"<<endl;
                 break;}
             case 5:{
             	show_allauthors();
@@ -193,5 +201,5 @@ int main(){
             default:cout<<"Введите,пожалуйста, другое число..";break;
         }
     }
-    cout<<"      Завершение программы..."<<endl;
+    cout<<" \n     Завершение программы..."<<endl;
 }
