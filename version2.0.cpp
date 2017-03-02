@@ -1,11 +1,7 @@
 #include <iostream>
 #include <vector>
-#include <set>
-#include <string>
 using namespace std;
-void clearer() {
-    cout<< "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-}
+
 class Author{
 public:
     string firstname;
@@ -28,6 +24,8 @@ private:
 	string genre;
 public:
 	Book();
+    int datereturn(){return this->date;}
+    void dateset(int newdate){this->date=newdate;}
 	void add();
 	void show();
 	void search();
@@ -37,7 +35,7 @@ public:
 void show_allauthors(){
 	for (int i = 0; i < authors.size(); ++i)
 	{
-		cout<<"######"<<i+1<<"- ";
+		cout<<"№"<<i+1<<"";
 		authors[i].show();
 	}
 }
@@ -50,7 +48,7 @@ void writein(string name,string lastname,string birthday){
 			flag=true;
 		}
 	}
-	if (flag==false)
+	if (!flag)
 	{
 		Author a;
 		a.setParams(name,lastname,birthday);
@@ -74,7 +72,7 @@ void Book::add(){
     cin>>f;
     cout << "Фамилия автора: ";
     cin>>l;
-    cout << "День рождения автора: ";
+    cout << "Дата рождения автора: ";
     cin>>b;
     this->author.setParams(f,l,b);
     writein(f,l,b);
@@ -96,7 +94,7 @@ void Book::show(){
 	cout<<this->title;
 	cout<<"\n*    Автор: ";
     this->author.show();
-	cout<<"\n*    Год написания книги: ";
+	cout<<"*    Год написания книги: ";
 	cout<<this->date;
 	cout<<"\n*    Минимальный возраст: ";
     cout<<this->minAge;
@@ -122,20 +120,58 @@ int search(string s,vector<Book> newbooks){
     }
     else
     {
-    return i;
+        return i;
+    }
 }
-}
-void showAllTheBooks(vector<Book> newbooks){    //!!!!!!!!!!!!!! Добавить "пока пусто"
+void printSortedByINDATE(vector<Book> newbooks){
     if (newbooks.size()==0) {
         cout<<"Книг пока нет!\n";
     }else{
-    cout<<"Все книги:\n";
-    for (size_t i = 0; i < newbooks.size(); i++) {
-        cout<<"#####о#"<<i+1<<" - "<<newbooks[i].bookTitle()<<endl;
-    }}
+        cout<<"Все книги:\n";
+        for (size_t i = 0; i < newbooks.size(); i++) {
+            cout<<"№"<<i+1<<" - "<<newbooks[i].bookTitle()<<endl;
+        }
+    }
 }
-void sortBooksByData(){
-
+void printSortedByName(vector<Book>newbooks){
+    if (newbooks.size()==0) {
+        cout<<"Книг пока нет!\n";
+    }else{
+        Book tmp;
+        for (size_t i = 0; i < newbooks.size(); i++) {
+            for (size_t j = 0; j < newbooks.size()-i-1; j++) {
+                    if(int(newbooks[j].bookTitle()[0])>int(newbooks[j+1].bookTitle()[0])){
+                    tmp=newbooks[j];
+                    newbooks[j] = newbooks[j+1];
+                    newbooks[j+1] = tmp;
+                }
+            }
+        }
+        cout<<"Все книги:\n";
+        for (size_t i = 0; i < newbooks.size(); i++) {
+            cout<<i+1<<"."<<newbooks[i].bookTitle()<<endl;
+        }
+    }
+}
+void printSortedByDate(vector<Book>newbooks){
+    if (newbooks.size()==0) {
+        cout<<"Книг пока нет!\n";
+    }else{
+        Book tmp;
+        for (size_t i = 0; i < newbooks.size(); i++) {
+            for (size_t j = 0; j < newbooks.size()-i-1; j++) {
+                if(newbooks[j].datereturn()>newbooks[j+1].datereturn()){
+                    tmp=newbooks[j];
+                    newbooks[j] = newbooks[j+1];
+                    newbooks[j+1] = tmp;
+                }
+            }
+        }
+        cout<<"Все книги:\n";
+        for (size_t i = 0; i < newbooks.size(); i++) {
+            cout<<newbooks[i].datereturn()<<" -> "<<newbooks[i].bookTitle()<<endl;
+        }
+    }
 }
 
 int main(){
@@ -143,13 +179,13 @@ int main(){
     vector<Book> books(0);
     int a = 1;
     for(;a;){
-        cout<<"0 - Завершить программу."<<endl;
-        cout<<"1 - Просмотреть список книг."<<endl;
-        cout<<"2 - Добавить книгу."<<endl;
-        cout<<"3 - Изменить параметр книги."<<endl;
-        cout<<"4 - Найти книгу по названию"<<endl;
-        cout<<"5 - Просмотреть список писателей."<<endl;
-        cout<<"6 - Список книг по автору."<<endl;
+        cout<<"0 - Завершить программу."<<endl;     //Сделано
+        cout<<"1 - Просмотреть список книг."<<endl; //Cделано
+        cout<<"2 - Добавить книгу."<<endl;          //Сделано
+        cout<<"3 - Изменить параметр книги."<<endl; //------
+        cout<<"4 - Найти книгу по названию"<<endl;  //Сделано
+        cout<<"5 - Просмотреть список писателей."<<endl; //Сделано
+        cout<<"6 - Список книг по автору."<<endl;   //------
         cin>>a;
         switch (a) {
             case 0:{
@@ -157,15 +193,22 @@ int main(){
                 break;
             }
             case 1:{
-                cout<<"1 - По дате.\n2 - В алфавитном порядке.\n";
+                cout<<"1 - По дате.\n2 - В алфавитном порядке.\n3 - По времени добавления.\n";
                 int what;
                 cin>>what;
                 switch (what) {
                     case 1:{
-                        showAllTheBooks(books);
+                        printSortedByDate(books);
                         break;
                     }
-                    case 2:{}
+                    case 2:{
+                        printSortedByName(books);
+                        break;
+                    }
+                    case 3:{
+                        printSortedByINDATE(books);
+                        break;
+                    }
                     default:break;
                 }
                 break;
@@ -173,33 +216,35 @@ int main(){
             case 2:{
                	books.resize(books.size()+1);
                	books[books.size()-1].add();
-
                 break;
 
             }
             case 3:{
-                cout<<"4ssssssss\n";
+                cout<<"В разработке...\n";
                 break;
             }
             case 4:{
                 cout<<"Введите название: ";
                 string booksName;
                 cin>>booksName;
-                if(search(booksName,books)>-1){
-                    cout<<"Ваша книга: "<<search(booksName,books)+1<<endl;
-                    
-                }
-                else
-                    cout<<"Нет такой книги!"<<endl;
-                break;}
+                if(search(booksName,books)!=-1){
+                    cout<<"Ваша книга: ";
+                    books[search(booksName,books)].show();
+                }else
+                    cout<<"Нет такой книги!\n";
+                break;
+            }
             case 5:{
             	show_allauthors();
             	break;
             }
-            case 6:cout<<"В разработке..."<<endl;break;
-            case 7:cout<<"В разработке..."<<endl;break;
-            default:cout<<"Введите,пожалуйста, другое число..";break;
+            case 6:
+                cout<<"В разработке..."<<endl;
+                break;
+            default:
+                cout<<"Введите,пожалуйста, другое число..";
+                break;
         }
     }
-    cout<<" \n     Завершение программы..."<<endl;
+    cout<<"Завершение программы..."<<endl;
 }
