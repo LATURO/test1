@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -32,11 +33,14 @@ public:
 	void updaterate();
     string bookTitle(){return this->title;}
     void change(vector<Book> books);
+    string getfirstname(){return this->author.firstname;}
+    string getlastname(){return this->author.lastname;}
+    string getbirthday(){return this->author.birthday;}
 };
 void show_allauthors(){
 	for (int i = 0; i < authors.size(); ++i)
 	{
-		cout<<"№"<<i+1<<"";
+		cout<<"№"<<i+1<<" ";
 		authors[i].show();
 	}
 }
@@ -175,17 +179,17 @@ void printSortedByDate(vector<Book>newbooks){
     }
 }
 void Book::change(vector<Book> books){
-	int buf=-1;
+    int buf=-1;
 	while(buf!=0){
-	cout<<"Введите номер параметра, который хотите изменить: "<<endl;   
-    cout<<"1 - Название"<<endl; 
-    cout<<"2 - Автора"<<endl; //ту хард нету времени    
+	cout<<"Введите номер параметра, который хотите изменить: "<<endl;
+    cout<<"1 - Название"<<endl;
+    cout<<"2 - Автора"<<endl; //ту хард нету времени
     cout<<"3 - Год выпуска"<<endl;
     cout<<"4 - Минимальный возраст"<<endl;
-    cout<<"5 - Жанр"<<endl;   
+    cout<<"5 - Жанр"<<endl;
    	cout<<"6 - Рейтинг"<<endl;
     cout<<"7 - Количество страниц"<<endl;
-    cout<<"0 - Выход в главное меню"<<endl; 
+    cout<<"0 - Выход в главное меню"<<endl;
     cout<<"Введите номер параметра: ";
 	cin>>buf;
 	switch(buf){
@@ -195,7 +199,7 @@ void Book::change(vector<Book> books){
 			cin>>s;
 			this->title=s;
 			break;
-			cout<<"успешно....."<<endl;
+			cout<<"Успешно....."<<endl;
 		}
 		case 2:{
 			string s,s1,s2;
@@ -207,41 +211,41 @@ void Book::change(vector<Book> books){
 			cin>>s2;
 			this->author.setParams(s,s1,s2);
 			writein(s,s1,s2);
-			cout<<"успешно....."<<endl;
+			cout<<"Успешно....."<<endl;
 			break;
 		}
 		case 3:{
 			unsigned  int s;
 			cin>>s;
 			this->date=s;
-			cout<<"успешно....."<<endl;
+			cout<<"Успешно....."<<endl;
 			break;
 		}
 		case 4:{
 			unsigned int s;
 			cin>>s;
 			this->minAge=s;
-			cout<<"успешно....."<<endl;
+			cout<<"Успешно....."<<endl;
 			break;
 		}case 5:{
 			string s;
 			cin>>s;
 			this->genre=s;
-			cout<<"успешно....."<<endl;
+			cout<<"Успешно....."<<endl;
 			break;
 		}
 		case 6:{
 			unsigned int s;
 			cin>>s;
 			this->rate=s;
-			cout<<"успешно....."<<endl;
+			cout<<"Успешно....."<<endl;
 			break;
 		}
 		case 7:{
 			unsigned int s;
 			cin>>s;
 			this->pages=s;
-			cout<<"успешно....."<<endl;
+			cout<<"Успешно....."<<endl;
 			break;
 		}
 		case 0:{
@@ -255,6 +259,7 @@ void Book::change(vector<Book> books){
 	}
 }
 int main(){
+    cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
     setlocale(0, "");
     vector<Book> books(0);
     int a = 1;
@@ -308,7 +313,7 @@ int main(){
 				cin>>name;
 				index=search(name,books);
 				if(index==-1){
-					cout<<"такой книги нет!!";
+					cout<<"Такой книги нет!!";
 					break;
 				}
                 books[index].change(books);
@@ -329,9 +334,21 @@ int main(){
             	show_allauthors();
             	break;
             }
-            case 6:
-                cout<<"В разработке..."<<endl;
+            case 6:{
+                cout<<"Введите, пожалуйста, имя, фамилию, и дату рождения автора:"<<endl;
+                string name1,name2,data;
+                cin>>name1>>name2>>data;
+                bool checker = true;
+                for (int i = 0, j = 1; i < books.size(); i++) {
+                    if(books[i].getfirstname()==name1&&books[i].getlastname()==name2&&books[i].getbirthday()==data){
+                        cout<<"#"<<j++<<" "<<books[i].bookTitle()<<endl;
+                        checker = false;
+                    }
+                }
+                if(checker)
+                    cout<<"Такого автора нет!\n";
                 break;
+            }
             default:
                 cout<<"Введите,пожалуйста, другое число..";
                 break;
